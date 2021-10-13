@@ -1,6 +1,6 @@
 abstract class AppStates {}
 
-class initialAppState extends AppStates {}
+class InitialAppState extends AppStates {}
 
 class ChangeTapbarState extends AppStates {}
 
@@ -14,13 +14,19 @@ class SaveFAvDataAppState extends AppStates {}
 
 class SaveidsDataAppState extends AppStates {}
 
-class changeFavIconState extends AppStates {}
+class ChangeFavIconState extends AppStates {}
+
+class ChangeCounterState extends AppStates {}
+
+class ChangeCounter2State extends AppStates {}
+
+class ChangeCounter3State extends AppStates {}
 
 class FavIconActiveState extends AppStates {}
 
 class FavIconDActiveState extends AppStates {}
 
-class changeCountState extends AppStates {}
+class ChangeCountState extends AppStates {}
 
 class CheckIsEmptyState extends AppStates {}
 

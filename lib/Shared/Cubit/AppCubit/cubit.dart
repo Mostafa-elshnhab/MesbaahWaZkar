@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mespaha/Shared/components/reusable/reusable%20components.dart';
 import 'package:mespaha/layout/elazkar/fav/fav.dart';
@@ -20,7 +19,7 @@ import 'package:mespaha/layout/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppCubit extends Cubit<AppStates> {
-  AppCubit() : super(initialAppState());
+  AppCubit() : super(InitialAppState());
   static AppCubit get(context) => BlocProvider.of(context);
   void initState(context) {
     readJson().then((value) {
@@ -33,10 +32,11 @@ class AppCubit extends Cubit<AppStates> {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => MyHomePage()));
     });
-    emit(initialAppState());
+    emit(InitialAppState());
   }
 
   int current = 0;
+  int Counter = 0;
 
   List<String> titels = [
     'وَاذْكُرِ اسْمَ رَبِّكَ',
@@ -116,8 +116,23 @@ class AppCubit extends Cubit<AppStates> {
 
   void changeFavIcon(index) {
     selected[index] = !selected[index];
-    emit(changeFavIconState());
+    emit(ChangeFavIconState());
   }
+
+  int Counter2 = 0;
+  int countZeker = 0;
+  void setCounter2() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('counter2', Counter2);
+    prefs.setInt('countZeker', countZeker);
+    emit(ChangeCounter2State());
+  }
+
+  List<String> zekerTitele = [
+    'سُبْحَانَ اللَّه',
+    'الْحَمْدُ للّهِ',
+    'اللَّهُ أَكْبَرُ',
+  ];
 
   void ChangeFavtoDActive({id, index}) {
     for (int i = 0; i < FavData.length; i++) {
@@ -136,18 +151,10 @@ class AppCubit extends Cubit<AppStates> {
     emit(FavIconDActiveState());
   }
 
-  void showSnackBar(context, String text) {
-    final snackBar = SnackBar(
-        backgroundColor: Colors.black.withOpacity(.7),
-        padding: EdgeInsetsDirectional.only(end: 20),
-        behavior: SnackBarBehavior.floating,
-        content: Text(
-          text,
-          textDirection: TextDirection.rtl,
-          style: TextStyle(
-              fontSize: 16, color: Colors.white, fontFamily: 'NotoKufi'),
-        ));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  void setCounter() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('counter', Counter);
+    emit(ChangeCounterState());
   }
 
   int allZecercurrent = 0;
@@ -171,7 +178,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   changeCount() {
-    emit(changeCountState());
+    emit(ChangeCountState());
   }
 
   int AllMesbahaCurrent = 0;
@@ -209,5 +216,17 @@ class AppCubit extends Cubit<AppStates> {
 
     Navigator.of(context).pop();
     emit(DeleteFavItemState());
+  }
+
+  int Counter3 = 0;
+  void ChanegeCounter3({comingTekrar, comingZeker, context}) {
+    Counter3++;
+
+    print(comingTekrar);
+    if (Counter3 == int.parse(comingTekrar!)) {
+      showSnackBar(context, 'لقد أتممت $Counter3 من ${comingZeker}');
+      Counter3 = 0;
+    }
+    emit(ChangeCounter3State());
   }
 }

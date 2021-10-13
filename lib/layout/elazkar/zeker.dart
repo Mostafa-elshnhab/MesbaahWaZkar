@@ -14,53 +14,53 @@ class Zeker extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AppCubit()..getCzeker(name),
-      child: BlocConsumer<AppCubit, AppStates>(listener: (context, state) {
-        if (state is changeFavIconState) {}
-      }, builder: (context, state) {
-        AppCubit cubit = AppCubit.get(context);
-        var zekerData = AppCubit.get(context).cZeker;
-        return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white70,
-              title: Text(
-                name!,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54,
-                    fontFamily: 'NotoKufi'),
-              ),
-              centerTitle: true,
-              leadingWidth: 0,
-            ),
-            body: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          String id = zekerData[index]['_id'];
+      child: BlocConsumer<AppCubit, AppStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            AppCubit cubit = AppCubit.get(context);
+            var zekerData = AppCubit.get(context).cZeker;
+            return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.white70,
+                  title: Text(
+                    name!,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                        fontFamily: 'NotoKufi'),
+                  ),
+                  centerTitle: true,
+                  leadingWidth: 0,
+                ),
+                body: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: ListView.separated(
+                            itemBuilder: (context, index) {
+                              String id = zekerData[index]['_id'];
 
-                          for (int i = 0; i < ids.length; i++) {
-                            if (id == ids[i]) {
-                              cubit.selected[index] = true;
-                            }
-                          }
+                              for (int i = 0; i < ids.length; i++) {
+                                if (id == ids[i]) {
+                                  cubit.selected[index] = true;
+                                }
+                              }
 
-                          return ZekerBuilder(
-                              index: index,
-                              context: context,
-                              cubit: cubit,
-                              zekerData: zekerData,
-                              fav: false);
-                        },
-                        separatorBuilder: (context, index) {
-                          return SizedBox(
-                            height: 20,
-                          );
-                        },
-                        itemCount: zekerData.length))));
-      }),
+                              return ZekerBuilder(
+                                  index: index,
+                                  context: context,
+                                  cubit: cubit,
+                                  zekerData: zekerData,
+                                  fav: false);
+                            },
+                            separatorBuilder: (context, index) {
+                              return SizedBox(
+                                height: 20,
+                              );
+                            },
+                            itemCount: zekerData.length))));
+          }),
     );
   }
 }

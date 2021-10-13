@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:mespaha/Shared/Cubit/cubit_observe.dart';
 import 'Shared/Cubit/AppCubit/cubit.dart';
 
 import 'package:flutter/services.dart';
-
 
 void main() {
   Bloc.observer = MyBlocObserver();

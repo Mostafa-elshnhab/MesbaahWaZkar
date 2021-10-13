@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:mespaha/layout/elamsbha/zekerTekrar.dart';
 import 'package:mespaha/layout/elazkar/zeker.dart';
 import 'package:share_plus/share_plus.dart';
 
-Widget AllZekerPageElemnt({required data ,required bool arbaen }) => Padding(
+Widget AllZekerPageElemnt({required data, required bool arbaen}) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: ListView.separated(
           itemBuilder: (context, index) {
@@ -29,37 +30,39 @@ Widget AllZekerPageElemnt({required data ,required bool arbaen }) => Padding(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
-                      child:arbaen?Column(
-                        children: [
-                          Text(
-                            '${data[index].title}',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'NotoKufi'),
-                          ),
-                          Text(
-                            '${data[index].name}',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.teal,
-                                fontFamily: 'NotoKufi'),
-                          ),
-                        ],
-                      ): Text(
-                        '${data[index].title}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'NotoKufi'),
-                      ),
+                      child: arbaen
+                          ? Column(
+                              children: [
+                                Text(
+                                  '${data[index].title}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'NotoKufi'),
+                                ),
+                                Text(
+                                  '${data[index].name}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.teal,
+                                      fontFamily: 'NotoKufi'),
+                                ),
+                              ],
+                            )
+                          : Text(
+                              '${data[index].title}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'NotoKufi'),
+                            ),
                     ),
                   )),
             );
@@ -322,8 +325,8 @@ Widget ZekerBuilder(
                         ),
                         onPressed: () {
                           Clipboard.setData(ClipboardData(text: zeker)).then(
-                              (value) => cubit.showSnackBar(
-                                  context, 'تم النسخ في الحافظه'));
+                              (value) =>
+                                  showSnackBar(context, 'تم النسخ في الحافظه'));
                         }),
                   ),
                   Expanded(
@@ -362,14 +365,137 @@ Widget ZekerBuilder(
         ),
       ));
 }
-Widget AllStack(page)=>Stack(
-  children: [
-    Image.asset(
-      'assets/images/back2.jpg',
-      width: double.infinity,
-      height: double.infinity,
-      fit: BoxFit.cover,
-    ),
-    page
-  ],
-);
+
+Widget AllStack(page) => Stack(
+      children: [
+        Image.asset(
+          'assets/images/back2.jpg',
+          width: double.infinity,
+          height: double.infinity,
+          fit: BoxFit.cover,
+        ),
+        page
+      ],
+    );
+void showSnackBar(context, String text) {
+  final snackBar = SnackBar(
+      backgroundColor: Colors.black.withOpacity(.7),
+      padding: EdgeInsetsDirectional.only(end: 20),
+      behavior: SnackBarBehavior.floating,
+      content: Text(
+        text,
+        textDirection: TextDirection.rtl,
+        style: TextStyle(
+            fontSize: 16, color: Colors.white, fontFamily: 'NotoKufi'),
+      ));
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
+
+Widget MesbahaBuilder({
+  required counter,
+  required context,
+  required showAlertMethoud,
+  required onGesturedTapMethoud,
+}) =>
+    Center(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Stack(
+          alignment: AlignmentDirectional.centerEnd,
+          children: [
+            Image.asset('assets/images/home.png'),
+            Column(
+              children: [
+                Row(
+                  children: [
+//                      SizedBox(
+//                        width: 90,
+//                      ),
+                    Expanded(
+                      child: Container(
+                        alignment: AlignmentDirectional.center,
+//                          width: 160,
+//                          height: 70,
+                        padding: EdgeInsetsDirectional.only(top: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          '$counter',
+                          style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Row(
+                  children: [
+//                      SizedBox(
+//                        width: 220,
+//                      ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          ShowAlertDialog(
+                              context: context,
+                              title: 'هل تريد البدأ من جديد؟',
+                              icon: Icons.warning_outlined,
+                              yes: showAlertMethoud);
+                        },
+                        child: Container(
+                          padding: EdgeInsetsDirectional.only(top: 43, end: 85),
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: CircleAvatar(
+                            backgroundColor: HexColor('#2C3138'),
+                            radius: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Row(
+                  children: [
+//                      SizedBox(
+//                        width: 135,
+//                      ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: onGesturedTapMethoud,
+                        child: CircleAvatar(
+                          backgroundColor: HexColor('#2C3138'),
+                          radius: 32,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+//                  SizedBox(
+//                    height: 120,
+//                  ),
+              ],
+            ),
+//              Column(
+//                children: [
+//                  SizedBox(
+//                    height: 37,
+//                  ),
+
+//              Column(
+//                children: [
+////                  SizedBox(
+////                    height: 150,
+////                  ),
+//
+//                ],
+//              ),
+          ],
+        ),
+      ),
+    );
