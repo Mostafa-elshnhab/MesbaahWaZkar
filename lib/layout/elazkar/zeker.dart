@@ -21,14 +21,8 @@ class Zeker extends StatelessWidget {
             var zekerData = AppCubit.get(context).cZeker;
             return Scaffold(
                 appBar: AppBar(
-                  backgroundColor: Colors.white70,
                   title: Text(
                     name!,
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black54,
-                        fontFamily: 'NotoKufi'),
                   ),
                   centerTitle: true,
                   leadingWidth: 0,

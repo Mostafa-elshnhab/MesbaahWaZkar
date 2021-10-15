@@ -26,8 +26,12 @@ class FavIconActiveState extends AppStates {}
 
 class FavIconDActiveState extends AppStates {}
 
+class ChangeModeState extends AppStates {}
+
 class ChangeCountState extends AppStates {}
 
 class CheckIsEmptyState extends AppStates {}
 
 class DeleteFavItemState extends AppStates {}
+
+class GetModeState extends AppStates {}

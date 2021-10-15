@@ -5,7 +5,9 @@ import 'package:mespaha/layout/elamsbha/zekerTekrar.dart';
 import 'package:mespaha/layout/elazkar/zeker.dart';
 import 'package:share_plus/share_plus.dart';
 
-Widget AllZekerPageElemnt({required data, required bool arbaen}) => Padding(
+Widget AllZekerPageElemnt(
+        {required data, required bool arbaen, isDrawer, title}) =>
+    Padding(
       padding: const EdgeInsets.all(20.0),
       child: ListView.separated(
           itemBuilder: (context, index) {
@@ -37,10 +39,7 @@ Widget AllZekerPageElemnt({required data, required bool arbaen}) => Padding(
                                   '${data[index].title}',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'NotoKufi'),
+                                  style: Theme.of(context).textTheme.button,
                                 ),
                                 Text(
                                   '${data[index].name}',
@@ -58,10 +57,7 @@ Widget AllZekerPageElemnt({required data, required bool arbaen}) => Padding(
                               '${data[index].title}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'NotoKufi'),
+                              style: Theme.of(context).textTheme.button,
                             ),
                     ),
                   )),
@@ -89,14 +85,7 @@ ShowAlertDialog(
       SizedBox(
         height: 12,
       ),
-      Text(
-        '$title',
-        style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            fontFamily: 'NotoKufi'),
-      ),
+      Text('$title', style: Theme.of(context).textTheme.bodyText2),
       Padding(
           padding: const EdgeInsets.all(8.0),
           child: MaterialButton(
@@ -112,13 +101,12 @@ ShowAlertDialog(
                 fontFamily: 'NotoKufi',
               ),
             ),
-            color: Colors.black54,
+            color: Colors.lightBlueAccent,
           )),
       TextButton(
         child: Text(
           "لا",
-          style: TextStyle(
-              fontSize: 20, color: Colors.black54, fontFamily: 'NotoKufi'),
+          style: Theme.of(context).textTheme.bodyText2,
         ),
         onPressed: () {
 //
@@ -164,10 +152,7 @@ Widget ZekerBuilder(
             Center(
               child: SelectableText(
                 '$zeker',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'NotoKufi'),
+                style: Theme.of(context).textTheme.button,
               ),
             ),
             !(reference == "")
@@ -216,13 +201,12 @@ Widget ZekerBuilder(
                           flex: 2,
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
+                              Navto(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ZekerTekrar(
-                                            tekrar: count,
-                                            zeker: zeker,
-                                          )));
+                                  ZekerTekrar(
+                                    tekrar: count,
+                                    zeker: zeker,
+                                  ));
                             },
                             child: Row(
                               children: [
@@ -275,7 +259,7 @@ Widget ZekerBuilder(
                                         id: id,
                                         data: zekerData[index],
                                         index: index);
-                                    cubit.showSnackBar(context,
+                                    showSnackBar(context,
                                         "تم الأضافة إلي الأذكار المفضلة");
                                   },
                                 )
@@ -366,27 +350,14 @@ Widget ZekerBuilder(
       ));
 }
 
-Widget AllStack(page) => Stack(
-      children: [
-        Image.asset(
-          'assets/images/back2.jpg',
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.cover,
-        ),
-        page
-      ],
-    );
 void showSnackBar(context, String text) {
   final snackBar = SnackBar(
-      backgroundColor: Colors.black.withOpacity(.7),
       padding: EdgeInsetsDirectional.only(end: 20),
       behavior: SnackBarBehavior.floating,
       content: Text(
         text,
         textDirection: TextDirection.rtl,
-        style: TextStyle(
-            fontSize: 16, color: Colors.white, fontFamily: 'NotoKufi'),
+        style: Theme.of(context).textTheme.bodyText1,
       ));
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
@@ -416,7 +387,7 @@ Widget MesbahaBuilder({
                         alignment: AlignmentDirectional.center,
 //                          width: 160,
 //                          height: 70,
-                        padding: EdgeInsetsDirectional.only(top: 20),
+                        padding: EdgeInsetsDirectional.only(top: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -447,7 +418,7 @@ Widget MesbahaBuilder({
                               yes: showAlertMethoud);
                         },
                         child: Container(
-                          padding: EdgeInsetsDirectional.only(top: 43, end: 85),
+                          padding: EdgeInsetsDirectional.only(top: 20, end: 85),
                           alignment: AlignmentDirectional.centerEnd,
                           child: CircleAvatar(
                             backgroundColor: HexColor('#2C3138'),
@@ -499,3 +470,6 @@ Widget MesbahaBuilder({
         ),
       ),
     );
+void Navto(context, Widget) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => Widget));
+}

@@ -29,8 +29,7 @@ class AppCubit extends Cubit<AppStates> {
     });
     onOpen();
     Timer(Duration(seconds: 5), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => MyHomePage()));
+      Navto(context, MyHomePage());
     });
     emit(InitialAppState());
   }
@@ -54,6 +53,7 @@ class AppCubit extends Cubit<AppStates> {
     Counter = prefs.getInt('counter') ?? 0;
     Counter2 = prefs.getInt('counter2') ?? 0;
     countZeker = prefs.getInt('countZeker') ?? 0;
+
     List<Map> getZeker() {
       List<String> messagesString = prefs.getStringList('ZekerData') ?? [];
       List<Map> ZekerMap = [];
@@ -166,11 +166,21 @@ class AppCubit extends Cubit<AppStates> {
     'المفضلة',
   ];
   List<Widget> Pages = [
-    elazkar(),
-    doaa(),
-    ahades(),
-    Alarbaen(),
-    FavPage(),
+    elazkar(
+      isdrawer: false,
+    ),
+    doaa(
+      isdrawer: false,
+    ),
+    ahades(
+      isdrawer: false,
+    ),
+    Alarbaen(
+      isdrawer: false,
+    ),
+    FavPage(
+      isdrawer: false,
+    ),
   ];
   void chanegAllzekerNavBar(index) {
     allZecercurrent = index;
@@ -187,8 +197,12 @@ class AppCubit extends Cubit<AppStates> {
     'تسبيح وذكر',
   ];
   List<Widget> mesbahaPages = [
-    khetamElsalah(),
-    elmesbha(),
+    khetamElsalah(
+      isDrawer: false,
+    ),
+    elmesbha(
+      isDrawer: false,
+    ),
   ];
   void chanegAllMesbahaNavBar(index) {
     AllMesbahaCurrent = index;
@@ -228,5 +242,21 @@ class AppCubit extends Cubit<AppStates> {
       Counter3 = 0;
     }
     emit(ChangeCounter3State());
+  }
+
+  bool isDark = false;
+
+  void onStateChanged(bool isDarkModeEnabled) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    isDark = isDarkModeEnabled;
+    prefs.setBool('idDark', isDark);
+    print(isDark);
+    emit(ChangeModeState());
+  }
+
+  void getMode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    isDark = prefs.getBool('idDark') ?? false;
+    emit(GetModeState());
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:mespaha/Shared/Cubit/AppCubit/States.dart';
 import 'package:mespaha/Shared/Cubit/AppCubit/cubit.dart';
 import 'package:mespaha/Shared/components/reusable/reusable%20components.dart';
@@ -23,7 +22,6 @@ class ZekerTekrar extends StatelessWidget {
         builder: (context, state) {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
-            backgroundColor: Colors.teal,
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(top: 20),
@@ -47,10 +45,7 @@ class ZekerTekrar extends StatelessWidget {
                               child: SelectableText(
                                 '$comingZeker',
                                 textDirection: TextDirection.rtl,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'NotoKufi'),
+                                style: Theme.of(context).textTheme.button,
                               ),
                             ),
                           ),
@@ -81,10 +76,7 @@ class ZekerTekrar extends StatelessWidget {
                             child: SelectableText(
                               'التكرار: $comingTekrar ',
                               textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'NotoKufi'),
+                              style: Theme.of(context).textTheme.button,
                             ),
                           ),
                         ),

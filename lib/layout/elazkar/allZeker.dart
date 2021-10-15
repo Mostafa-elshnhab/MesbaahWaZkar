@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mespaha/Shared/components/reusable/reusable%20components.dart';
 import '../../Shared/Cubit/AppCubit/States.dart';
 import '../../Shared/Cubit/AppCubit/cubit.dart';
 
@@ -17,7 +16,6 @@ class AllZeker extends StatelessWidget {
             currentIndex: cubit.allZecercurrent,
             selectedFontSize: 16,
             elevation: 0,
-            backgroundColor: Colors.white60,
             unselectedLabelStyle: TextStyle(fontFamily: 'ReemKufi'),
             selectedLabelStyle: TextStyle(fontFamily: 'ReemKufi'),
             onTap: (index) {
@@ -66,7 +64,7 @@ class AllZeker extends StatelessWidget {
               ),
             ],
           ),
-          body: AllStack(cubit.Pages[cubit.allZecercurrent]),
+          body: cubit.Pages[cubit.allZecercurrent],
         );
       },
     );
