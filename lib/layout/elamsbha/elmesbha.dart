@@ -1,14 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mespaha/Shared/Cubit/AppCubit/States.dart';
 import 'package:mespaha/Shared/Cubit/AppCubit/cubit.dart';
 import 'package:mespaha/Shared/components/reusable/reusable%20components.dart';
+
+int Counter = 0;
+int zekrTekrar = 0;
+String Zeker = '';
 
 class elmesbha extends StatelessWidget {
   bool isDrawer = false;
   elmesbha({isDrawer}) {
     this.isDrawer = isDrawer;
+//    zeker.text = Zeker;
+//    number.text = zekrTekrar.toString();
   }
   var zeker = TextEditingController();
   var number = TextEditingController();
@@ -44,12 +51,7 @@ class elmesbha extends StatelessWidget {
                             textDirection: TextDirection.rtl,
                             autofocus: false,
                             controller: zeker,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                height: 1.2,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'NotoKufi'),
+                            style: Theme.of(context).textTheme.bodyText2,
                             decoration: InputDecoration(
                               hintText: 'الذكر ',
                               focusedBorder: OutlineInputBorder(
@@ -61,12 +63,14 @@ class elmesbha extends StatelessWidget {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
-                                  color: Colors.white,
+                                  color: cubit.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                               hintTextDirection: TextDirection.rtl,
                               hintStyle: TextStyle(
-                                color: Colors.grey[400],
+                                color: Colors.grey,
                               ),
                             ),
                           ),
@@ -82,12 +86,7 @@ class elmesbha extends StatelessWidget {
                             textDirection: TextDirection.rtl,
                             controller: number,
                             keyboardType: TextInputType.number,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                height: 1.2,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'NotoKufi'),
+                            style: Theme.of(context).textTheme.bodyText2,
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -98,7 +97,9 @@ class elmesbha extends StatelessWidget {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
-                                  color: Colors.white,
+                                  color: cubit.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                               hintText: 'التكرار ',
@@ -114,21 +115,26 @@ class elmesbha extends StatelessWidget {
                   ),
                 ),
                 MesbahaBuilder(
-                    counter: cubit.Counter,
+                    counter: Counter,
                     context: context,
                     onGesturedTapMethoud: () {
-                      cubit.Counter++;
+                      Counter++;
+                      if (zeker.value.isComposingRangeValid &&
+                          number.value.isComposingRangeValid) {
+                        zekrTekrar = int.parse(number.text);
+                        Zeker = zeker.text;
+                      }
                       cubit.setCounter();
-                      print(number.text);
                       if (number.text != '') {
-                        if (cubit.Counter == int.parse(number.text)) {
-                          showSnackBar(context,
-                              'لقد أتممت ${cubit.Counter} من ${zeker.text}');
+                        if (Counter == int.parse(number.text)) {
+                          Vibrate.vibrate();
+                          showSnackBar(
+                              context, 'لقد أتممت ${Counter} من ${zeker.text}');
                         }
                       }
                     },
                     showAlertMethoud: () {
-                      cubit.Counter = 0;
+                      Counter = 0;
                       cubit.setCounter();
                       Navigator.of(context).pop();
                     })

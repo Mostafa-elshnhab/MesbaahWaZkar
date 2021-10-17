@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mespaha/Shared/components/reusable/reusable%20components.dart';
 import 'package:mespaha/layout/elazkar/fav/fav.dart';
 import 'States.dart';
@@ -35,7 +36,6 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   int current = 0;
-  int Counter = 0;
 
   List<String> titels = [
     'وَاذْكُرِ اسْمَ رَبِّكَ',
@@ -53,6 +53,9 @@ class AppCubit extends Cubit<AppStates> {
     Counter = prefs.getInt('counter') ?? 0;
     Counter2 = prefs.getInt('counter2') ?? 0;
     countZeker = prefs.getInt('countZeker') ?? 0;
+    zekrTekrar = prefs.getInt('zekrTekrar') ?? 0;
+    Zeker = prefs.getString('zeker')!;
+    print(Zeker);
 
     List<Map> getZeker() {
       List<String> messagesString = prefs.getStringList('ZekerData') ?? [];
@@ -119,8 +122,6 @@ class AppCubit extends Cubit<AppStates> {
     emit(ChangeFavIconState());
   }
 
-  int Counter2 = 0;
-  int countZeker = 0;
   void setCounter2() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('counter2', Counter2);
@@ -154,6 +155,8 @@ class AppCubit extends Cubit<AppStates> {
   void setCounter() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('counter', Counter);
+    prefs.setInt('zekrTekrar', zekrTekrar);
+    prefs.setString('zeker', Zeker);
     emit(ChangeCounterState());
   }
 
@@ -239,6 +242,7 @@ class AppCubit extends Cubit<AppStates> {
     print(comingTekrar);
     if (Counter3 == int.parse(comingTekrar!)) {
       showSnackBar(context, 'لقد أتممت $Counter3 من ${comingZeker}');
+      Vibrate.vibrate();
       Counter3 = 0;
     }
     emit(ChangeCounter3State());
@@ -251,6 +255,7 @@ class AppCubit extends Cubit<AppStates> {
     isDark = isDarkModeEnabled;
     prefs.setBool('idDark', isDark);
     print(isDark);
+    Vibrate.vibrate();
     emit(ChangeModeState());
   }
 

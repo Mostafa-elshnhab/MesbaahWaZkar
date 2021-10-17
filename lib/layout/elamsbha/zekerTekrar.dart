@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mespaha/Shared/Cubit/AppCubit/States.dart';
 import 'package:mespaha/Shared/Cubit/AppCubit/cubit.dart';
 import 'package:mespaha/Shared/components/reusable/reusable%20components.dart';

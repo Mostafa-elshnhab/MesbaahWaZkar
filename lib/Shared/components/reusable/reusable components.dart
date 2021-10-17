@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:mespaha/Shared/MediaQuery/sizeConfig.dart';
 import 'package:mespaha/layout/elamsbha/zekerTekrar.dart';
 import 'package:mespaha/layout/elazkar/zeker.dart';
 import 'package:share_plus/share_plus.dart';
@@ -367,109 +368,65 @@ Widget MesbahaBuilder({
   required context,
   required showAlertMethoud,
   required onGesturedTapMethoud,
-}) =>
-    Center(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Stack(
-          alignment: AlignmentDirectional.centerEnd,
-          children: [
-            Image.asset('assets/images/home.png'),
-            Column(
-              children: [
-                Row(
-                  children: [
-//                      SizedBox(
-//                        width: 90,
-//                      ),
-                    Expanded(
-                      child: Container(
-                        alignment: AlignmentDirectional.center,
-//                          width: 160,
-//                          height: 70,
-                        padding: EdgeInsetsDirectional.only(top: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          '$counter',
-                          style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                Row(
-                  children: [
-//                      SizedBox(
-//                        width: 220,
-//                      ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          ShowAlertDialog(
-                              context: context,
-                              title: 'هل تريد البدأ من جديد؟',
-                              icon: Icons.warning_outlined,
-                              yes: showAlertMethoud);
-                        },
-                        child: Container(
-                          padding: EdgeInsetsDirectional.only(top: 20, end: 85),
-                          alignment: AlignmentDirectional.centerEnd,
-                          child: CircleAvatar(
-                            backgroundColor: HexColor('#2C3138'),
-                            radius: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                Row(
-                  children: [
-//                      SizedBox(
-//                        width: 135,
-//                      ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: onGesturedTapMethoud,
-                        child: CircleAvatar(
-                          backgroundColor: HexColor('#2C3138'),
-                          radius: 32,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-//                  SizedBox(
-//                    height: 120,
-//                  ),
-              ],
+}) {
+  SizeConfig().init(context);
+  return Center(
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Stack(
+        alignment: AlignmentDirectional.centerEnd,
+        children: [
+          Image.asset(
+            'assets/images/home.png',
+            height: SizeConfig.safeBlockVertical! * 50,
+          ),
+          Positioned(
+            top: SizeConfig.safeBlockVertical! * 11,
+            left: SizeConfig.safeBlockHorizontal! * 43,
+            child: Text(
+              '$counter',
+              style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
-//              Column(
-//                children: [
-//                  SizedBox(
-//                    height: 37,
-//                  ),
-
-//              Column(
-//                children: [
-////                  SizedBox(
-////                    height: 150,
-////                  ),
-//
-//                ],
-//              ),
-          ],
-        ),
+          ),
+          Positioned(
+            top: SizeConfig.safeBlockVertical! * 25.3,
+            left: SizeConfig.safeBlockHorizontal! * 60.8,
+            child: GestureDetector(
+              onTap: () {
+                ShowAlertDialog(
+                    context: context,
+                    title: 'هل تريد البدأ من جديد؟',
+                    icon: Icons.warning_outlined,
+                    yes: showAlertMethoud);
+              },
+              child: Container(
+                child: CircleAvatar(
+                  backgroundColor: HexColor('#2C3138'),
+                  radius: 19,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: SizeConfig.blockSizeVertical! * 32,
+            left: SizeConfig.safeBlockHorizontal! * 38,
+            child: GestureDetector(
+              onTap: onGesturedTapMethoud,
+              child: CircleAvatar(
+                backgroundColor: HexColor('#2C3138'),
+                radius: 32,
+              ),
+            ),
+          ),
+        ],
       ),
-    );
+    ),
+  );
+}
+
 void Navto(context, Widget) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => Widget));
 }

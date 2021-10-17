@@ -3,12 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mespaha/Shared/Cubit/AppCubit/States.dart';
 import 'package:mespaha/Shared/Cubit/AppCubit/cubit.dart';
 import 'package:mespaha/Shared/components/reusable/reusable%20components.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
+
+int Counter2 = 0;
+int countZeker = 0;
 
 class khetamElsalah extends StatelessWidget {
   bool isDrawer = false;
   khetamElsalah({isDrawer}) {
     this.isDrawer = isDrawer;
   }
+  final Iterable<Duration> pauses = [
+    const Duration(milliseconds: 500),
+  ];
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
@@ -35,15 +42,15 @@ class khetamElsalah extends StatelessWidget {
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
+                      color: cubit.isDark ? Colors.white : Colors.black,
                     ),
                     child: Center(
                       child: Text(
-                        cubit.zekerTitele[cubit.countZeker],
+                        cubit.zekerTitele[countZeker],
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: cubit.isDark ? Colors.black : Colors.white,
                             fontFamily: 'NotoKufi'),
                       ),
                     ),
@@ -51,22 +58,23 @@ class khetamElsalah extends StatelessWidget {
                 ),
                 MesbahaBuilder(
                   context: context,
-                  counter: cubit.Counter2,
+                  counter: Counter2,
                   showAlertMethoud: () {
-                    cubit.Counter2 = 0;
-                    cubit.countZeker = 0;
+                    Counter2 = 0;
+                    countZeker = 0;
                     cubit.setCounter2();
                     Navigator.of(context).pop();
                   },
                   onGesturedTapMethoud: () {
-                    cubit.Counter2++;
-                    if (cubit.Counter2 == 33) {
-                      if (cubit.countZeker == 2) {
-                        cubit.countZeker = 0;
+                    Counter2++;
+                    if (Counter2 == 33) {
+                      if (countZeker == 2) {
+                        countZeker = 0;
                       } else {
-                        cubit.countZeker = cubit.countZeker + 1;
+                        Vibrate.vibrate();
+                        countZeker = countZeker + 1;
                       }
-                      cubit.Counter2 = 0;
+                      Counter2 = 0;
                     }
                     cubit.setCounter2();
                   },
