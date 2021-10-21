@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:mespaha/Modules/elamsbha/zekerTekrar.dart';
+import 'package:mespaha/Modules/elazkar/zeker.dart';
 import 'package:mespaha/Shared/MediaQuery/sizeConfig.dart';
-import 'package:mespaha/layout/elamsbha/zekerTekrar.dart';
-import 'package:mespaha/layout/elazkar/zeker.dart';
 import 'package:share_plus/share_plus.dart';
 
 Widget AllZekerPageElemnt(
@@ -260,8 +261,14 @@ Widget ZekerBuilder(
                                         id: id,
                                         data: zekerData[index],
                                         index: index);
-                                    showSnackBar(context,
-                                        "تم الأضافة إلي الأذكار المفضلة");
+//                                    showSnackBar(context,
+//                                        "تم الأضافة إلي الأذكار المفضلة");
+                                    Tost(
+                                        "تم الأضافة إلي الأذكار المفضلة",
+                                        cubit.isDark
+                                            ? Colors.lightBlueAccent
+                                                .withOpacity(.7)
+                                            : Colors.black.withOpacity(.7));
                                   },
                                 )
                               : IconButton(
@@ -310,8 +317,11 @@ Widget ZekerBuilder(
                         ),
                         onPressed: () {
                           Clipboard.setData(ClipboardData(text: zeker)).then(
-                              (value) =>
-                                  showSnackBar(context, 'تم النسخ في الحافظه'));
+                              (value) => Tost(
+                                  "تم النسخ في الحافظه",
+                                  cubit.isDark
+                                      ? Colors.lightBlueAccent.withOpacity(.7)
+                                      : Colors.black.withOpacity(.7)));
                         }),
                   ),
                   Expanded(
@@ -429,4 +439,15 @@ Widget MesbahaBuilder({
 
 void Navto(context, Widget) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => Widget));
+}
+
+Tost(String msg, Color color) {
+  return Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.SNACKBAR,
+      timeInSecForIosWeb: 5,
+      backgroundColor: color,
+      textColor: Colors.white,
+      fontSize: 16.0);
 }

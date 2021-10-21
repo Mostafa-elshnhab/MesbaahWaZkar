@@ -24,8 +24,17 @@ class Zeker extends StatelessWidget {
                   title: Text(
                     name!,
                   ),
-                  centerTitle: true,
                   leadingWidth: 0,
+                  leading: SizedBox(),
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.arrow_forward_ios_outlined),
+                    ),
+                  ],
                 ),
                 body: Directionality(
                     textDirection: TextDirection.rtl,

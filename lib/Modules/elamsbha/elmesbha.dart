@@ -34,6 +34,16 @@ class elmesbha extends StatelessWidget {
                   ),
                   centerTitle: true,
                   leadingWidth: 0,
+            leading: SizedBox(),
+            actions: [
+              IconButton(
+                onPressed: () {
+
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(Icons.arrow_forward_ios_outlined),
+              ),
+            ],
                 )
               : null,
           body: SingleChildScrollView(
@@ -126,10 +136,15 @@ class elmesbha extends StatelessWidget {
                       }
                       cubit.setCounter();
                       if (number.text != '') {
-                        if (Counter == int.parse(number.text)) {
-                          Vibrate.vibrate();
+                        try {
+                          if (Counter == int.parse(number.text)) {
+                            Vibrate.vibrate();
+                            showSnackBar(context,
+                                'لقد أتممت ${Counter} من ${zeker.text}');
+                          }
+                        } catch (e) {
                           showSnackBar(
-                              context, 'لقد أتممت ${Counter} من ${zeker.text}');
+                              context, 'تاكد من أن التكرار عباره عن رقم فقط');
                         }
                       }
                     },

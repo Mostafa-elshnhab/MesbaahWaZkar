@@ -18,6 +18,16 @@ class doaa extends StatelessWidget {
     ),
     centerTitle: true,
     leadingWidth: 0,
+          leading: SizedBox(),
+          actions: [
+            IconButton(
+              onPressed: () {
+
+                Navigator.of(context).pop();
+              },
+              icon: Icon(Icons.arrow_forward_ios_outlined),
+            ),
+          ],
     ):null,
     body: AllZekerPageElemnt(data: doaaData, arbaen: false));
   }

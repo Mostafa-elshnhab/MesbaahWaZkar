@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:mespaha/Modules/elamsbha/AllMesbaha.dart';
+import 'package:mespaha/Modules/elamsbha/elmesbha.dart';
+import 'package:mespaha/Modules/elamsbha/khetamElsalah.dart';
+import 'package:mespaha/Modules/elazkar/Alarbaen.dart';
+import 'package:mespaha/Modules/elazkar/ahades.dart';
+import 'package:mespaha/Modules/elazkar/allZeker.dart';
+import 'package:mespaha/Modules/elazkar/doaa.dart';
+import 'package:mespaha/Modules/elazkar/elazkar.dart';
+import 'package:mespaha/Modules/elazkar/fav/fav.dart';
 import 'package:mespaha/Shared/components/reusable/reusable%20components.dart';
-import 'package:mespaha/layout/elamsbha/elmesbha.dart';
-import 'package:mespaha/layout/elamsbha/khetamElsalah.dart';
-import 'package:mespaha/layout/elazkar/Alarbaen.dart';
-import 'package:mespaha/layout/elazkar/doaa.dart';
+
 import '../Shared/Cubit/AppCubit/States.dart';
 import '../Shared/Cubit/AppCubit/cubit.dart';
-import 'package:mespaha/layout/elamsbha/AllMesbaha.dart';
 import 'package:day_night_switcher/day_night_switcher.dart';
 
-import 'elazkar/ahades.dart';
-import 'elazkar/allZeker.dart';
-import 'elazkar/elazkar.dart';
-import 'elazkar/fav/fav.dart';
-
 class MyHomePage extends StatelessWidget {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
-      listener: (context, state) {
-        print(state);
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         AppCubit cubit = AppCubit.get(context);
         Future<bool> onWillPop() {
@@ -42,6 +40,7 @@ class MyHomePage extends StatelessWidget {
           child: DefaultTabController(
               length: 2,
               child: Scaffold(
+                key: scaffoldKey,
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(106),
                   child: Container(
@@ -59,6 +58,12 @@ class MyHomePage extends StatelessWidget {
                           ),
                           centerTitle: true,
                           leadingWidth: 0,
+                          actions: [
+                            IconButton(
+                                icon: Icon(Icons.menu),
+                                onPressed: () =>
+                                    scaffoldKey.currentState!.openEndDrawer()),
+                          ],
                         ),
                         TabBar(
                             onTap: (v) {
@@ -106,9 +111,9 @@ class MyHomePage extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.only(top: 3),
                                 child: Text(
-                                  'مسبحه واذكار',
+                                  'وَقُل رَّبِّ اغْفِرْ وَارْحَمْ',
                                   style: TextStyle(
-                                    fontSize: 23,
+                                    fontSize: 20,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -367,13 +372,15 @@ class MyHomePage extends StatelessWidget {
                             ),
                           ),
                           Container(
-                              padding: EdgeInsetsDirectional.only(end: 10),
+                              padding: EdgeInsetsDirectional.only(
+                                  end: 15, bottom: 6),
                               alignment: AlignmentDirectional.topEnd,
                               child: Text(
-                                '\u00a9 Mostafa Elshnhab',
+                                '2021 \u00a9 Mostafa Elshnhab',
                                 textDirection: TextDirection.ltr,
-                                style: TextStyle(fontSize: 14),
-                              ))
+                                style: TextStyle(
+                                    fontSize: 16, fontFamily: 'Oswald'),
+                              )),
                         ],
                       ),
                     ),
