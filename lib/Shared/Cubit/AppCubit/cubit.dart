@@ -54,7 +54,7 @@ class AppCubit extends Cubit<AppStates> {
     Counter2 = prefs.getInt('counter2') ?? 0;
     countZeker = prefs.getInt('countZeker') ?? 0;
     zekrTekrar = prefs.getInt('zekrTekrar') ?? 0;
-    Zeker = prefs.getString('zeker')!;
+    Zeker = prefs.getString('zeker') ?? '';
     print(Zeker);
 
     List<Map> getZeker() {

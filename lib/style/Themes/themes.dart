@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData darkTheme = ThemeData(
+  visualDensity: VisualDensity.adaptivePlatformDensity,
   primarySwatch: Colors.blue,
   dialogBackgroundColor: Color(0xFF253341),
   snackBarTheme: SnackBarThemeData(
@@ -70,6 +71,7 @@ ThemeData darkTheme = ThemeData(
 );
 
 ThemeData lightTheme = ThemeData(
+  visualDensity: VisualDensity.adaptivePlatformDensity,
   primarySwatch: Colors.blue,
   dialogBackgroundColor: Colors.white,
   snackBarTheme: SnackBarThemeData(

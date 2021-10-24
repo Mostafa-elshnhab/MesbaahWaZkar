@@ -1,3 +1,5 @@
+import 'package:mespaha/models/adanTime.dart';
+
 abstract class AppStates {}
 
 class InitialAppState extends AppStates {}

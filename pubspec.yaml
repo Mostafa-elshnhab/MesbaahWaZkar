@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   hexcolor: ^2.0.5
   share_plus: "^2.1.4"
+  http: ^0.13.2
+  csc_picker: ^0.2.6
   shared_preferences: ^2.0.6
   flutter_bloc: ^7.3.0
   bloc: ^7.2.1
@@ -32,6 +34,9 @@ dependencies:
   flutter_vibrate: ^1.3.0
   fluttertoast: ^8.0.8
   bottom_bar: ^1.2.4
+
+
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,7 +59,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/Quran/
     - assets/azkar.json
+    - assets/fehres.json
+
 
 
 
@@ -82,6 +90,9 @@ flutter:
     - family: Oswald
       fonts:
         - asset: assets/fonts/Oswald.ttf
+    - family: Quran
+      fonts:
+        - asset: assets/fonts/MADDINA.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

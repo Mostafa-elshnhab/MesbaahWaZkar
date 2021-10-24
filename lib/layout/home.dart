@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mespaha/Modules/MekatElsalah/Cubit/cubit.dart';
+import 'package:mespaha/Modules/Quran/surahIndex_view.dart';
 import 'package:mespaha/Modules/elamsbha/AllMesbaha.dart';
 import 'package:mespaha/Modules/elamsbha/elmesbha.dart';
 import 'package:mespaha/Modules/elamsbha/khetamElsalah.dart';
@@ -11,7 +13,7 @@ import 'package:mespaha/Modules/elazkar/doaa.dart';
 import 'package:mespaha/Modules/elazkar/elazkar.dart';
 import 'package:mespaha/Modules/elazkar/fav/fav.dart';
 import 'package:mespaha/Shared/components/reusable/reusable%20components.dart';
-
+import '../Modules/MekatElsalah/AdanTime.dart';
 import '../Shared/Cubit/AppCubit/States.dart';
 import '../Shared/Cubit/AppCubit/cubit.dart';
 import 'package:day_night_switcher/day_night_switcher.dart';
@@ -121,7 +123,8 @@ class MyHomePage extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                            child: Column(
+                            flex: 1,
+                            child: ListView(
                               children: [
                                 ListTile(
                                   horizontalTitleGap: 0,
@@ -317,38 +320,51 @@ class MyHomePage extends StatelessWidget {
                                 SizedBox(
                                   height: 10,
                                 ),
-//                                ListTile(
-//                                  horizontalTitleGap: 0,
-//                                  visualDensity: VisualDensity(
-//                                      horizontal: 0, vertical: -4),
-//                                  leading: Icon(
-//                                    Icons.person,
-//                                    size: 25,
-//                                    color: HexColor('#EEAF41'),
-//                                  ),
-//                                  title: Text(
-//                                    'الأذكار',
-//                                    style:
-//                                        Theme.of(context).textTheme.bodyText2,
-//                                  ),
-//                                  onTap: () {},
-//                                ),
-//                                ListTile(
-//                                  horizontalTitleGap: 0,
-//                                  visualDensity: VisualDensity(
-//                                      horizontal: 0, vertical: -4),
-//                                  leading: Icon(
-//                                    Icons.chat_rounded,
-//                                    size: 25,
-//                                    color: HexColor('#EEAF41'),
-//                                  ),
-//                                  title: Text(
-//                                    'الأذكار',
-//                                    style:
-//                                        Theme.of(context).textTheme.bodyText2,
-//                                  ),
-//                                  onTap: () {},
-//                                ),
+                                ListTile(
+                                  horizontalTitleGap: 0,
+                                  visualDensity: VisualDensity(
+                                      horizontal: 0, vertical: -4),
+                                  leading: Image.asset(
+                                    'assets/images/quran.png',
+                                    width: 25,
+                                    height: 25,
+                                  ),
+                                  title: Text(
+                                    'القرآن الكريم',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                  onTap: () {
+                                    Navto(context, SurahIndex());
+                                  },
+                                ),
+                                ListTile(
+                                  horizontalTitleGap: 0,
+                                  visualDensity: VisualDensity(
+                                      horizontal: 0, vertical: -4),
+                                  leading: Image.asset(
+                                    'assets/images/info.png',
+                                    width: 25,
+                                    height: 25,
+                                  ),
+                                  title: Text(
+                                    'مواقيت الصلاة',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                  onTap: () {
+                                    Navto(context, AdanTime());
+                                  },
+                                ),
+                                Divider(
+                                  color: Colors.grey.withOpacity(.7),
+                                  thickness: 1,
+                                  endIndent: 15,
+                                  indent: 15,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.only(
                                       start: 15),
