@@ -1,3 +1,4 @@
+import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:mespaha/data/Api/quranAPI.dart';
@@ -14,37 +15,65 @@ class SurahView extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     String sourh = "";
+    int ayahNum = 0;
+    ArabicNumbers arabicNumber = ArabicNumbers();
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Scaffold(
-          appBar: AppBar(
-            title: Text('$name'),
-          ),
-          body: FutureBuilder(
-            future: QuranAPI().getSourh(number),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              for (int i = 0; i < snapshot.data!.data[0].ayah.length; i++) {
-                sourh = sourh +
-                    snapshot.data.data[0].ayah[i].text +
-                    '  -  ' +
-                    snapshot.data.data[0].ayah[i].number.toString();
-              }
-              print(sourh);
-              return CustomScrollView(
-                slivers: <Widget>[
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                        (context, index) => line(height, index, width,
-                            snapshot.data!.data[0].ayah, context),
-                        childCount: snapshot.data!.data[0].ayah.length),
-                  )
-                ],
-              );
+          // appBar:
+          // AppBar(
+          //   title: Text('$name'),
+          // ),
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                title: Text('$name'),
+                floating: true,
+                snap: true,
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                      (context, index) =>FutureBuilder(
+                        future: QuranAPI().getSourh(number),
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          ayahNum = 1;
+                          for (var line  in snapshot.data.data[0].ayah) {
+                            sourh += line.text;
+                            sourh += " (${arabicNumber.convert(line.number)}) ";
+                            ayahNum++;
+                            // sourh = sourh +
+                            //     snapshot.data.data[0].ayah[i].text +
+                            //     '  -  ' +
+                            //     snapshot.data.data[0].ayah[i].number.toString();
+                          }
+                          print(sourh);
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Text(
+                                        sourh,
+                                        textScaleFactor: 1.3,
+                                        textAlign: TextAlign.justify,
+                                        style:Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(fontSize: height * 0.018, fontFamily: 'Quran')
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
 //            return Padding(
 //              padding: const EdgeInsets.all(8.0),
 //              child: Container(
@@ -61,8 +90,13 @@ class SurahView extends StatelessWidget {
 //                ),
 //              ),
 //            );
-            },
-          )),
+                        },
+                      ),
+                  childCount: 1, // Replace with your actual item count
+                ),
+              ),
+            ],
+          ),),
     );
   }
 
@@ -86,7 +120,7 @@ class SurahView extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodyText2!
-                .copyWith(fontSize: height * 0.03, fontFamily: 'Quran')),
+                .copyWith(fontSize: height * 0.03, fontFamily: 'NotoKufi')),
       ),
     );
   }

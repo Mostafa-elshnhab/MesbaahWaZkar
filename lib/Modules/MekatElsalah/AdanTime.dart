@@ -72,7 +72,7 @@ class AdanTime extends StatelessWidget {
                                     showCities: true,
                                     cityDropdownLabel: 'المدينة',
                                     stateDropdownLabel: 'المحافظة',
-                                    defaultCountry: DefaultCountry.Egypt,
+                                    defaultCountry:CscCountry.Egypt ,
                                     disableCountry: true,
                                     currentCountry: cubit.countryValue,
                                     currentState: cubit.stateValue,
