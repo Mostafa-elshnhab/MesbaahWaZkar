@@ -55,7 +55,7 @@ ThemeData darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: Color(0xFF253341),
     elevation: 0,
-    backwardsCompatibility: false,
+    // backwardsCompatibility: false,
     iconTheme: IconThemeData(color: Colors.white, size: 22),
     centerTitle: true,
     titleTextStyle: TextStyle(
@@ -122,7 +122,7 @@ ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.white,
     elevation: 0,
-    backwardsCompatibility: false,
+    // backwardsCompatibility: false,
     iconTheme: IconThemeData(color: Colors.black, size: 22),
     centerTitle: true,
     titleTextStyle: TextStyle(
